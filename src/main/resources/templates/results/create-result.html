@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:insert="blocks/head">
+</head>
+
+<body class="h-100 text-white bg-dark">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header th:insert="blocks/header">
+    </header>
+
+    <main class="px-3">
+
+        <div class="form-container">
+
+            <div th:if="${wrongData}" class="alertError">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Помилка: </strong><text th:text="${wrongData}"> </text>
+            </div>
+
+            <div class="results p-3">
+                <h3>Додати новий результат</h3>
+            </div>
+
+            <form style="padding: 2%" action="/result/create" method="post">
+                <select class="form-select" name="tournament" required>
+                    <option value="" selected>Оберіть турнір</option>
+                    <option th:each="el : ${tournaments}" th:value="${el.id}"  th:text="${el.year}"></option>
+                </select>
+                <br>
+                <select class="form-select" name="participant" required>
+                    <option value="" selected>Оберіть учасника</option>
+                    <option th:each="el : ${participants}" th:value="${el.id}"  th:text="${el.name}"></option>
+                </select>
+                <br>
+                <input type="number" min="0" step="1" name="points" placeholder="Введіть бали" class="form-control" required><br>
+                <input type="number" min="0"  step="1" name="performance" placeholder="Введіть перформанс" class="form-control" required><br>
+                <button type="submit" class="btn btn-primary">Додати результат</button>
+            </form>
+
+            <a href="/result">Назад</a>
+
+        </div>
+
+    </main>
+
+    <footer class="mt-auto text-white-50">
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>
